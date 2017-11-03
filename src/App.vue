@@ -1,17 +1,17 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div id="main" class="app-main">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+  }
 </script>
 
-<style lang="sass">
-
-  @import "~bootstrap/scss/bootstrap.scss";
+<style>
+  .app-main{
+    width: 100%;
+    height: 100%;
+  }
 </style>

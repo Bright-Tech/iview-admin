@@ -1,83 +1,73 @@
-<style lang="less">
-    @import './login.less';
-</style>
-
 <template>
-    <div class="login" @keydown.enter="handleSubmit">
-        <div class="login-con">
-            <Card :bordered="false">
-                <p slot="title">
-                    <Icon type="log-in"></Icon>
-                    欢迎登录
-                </p>
-                <div class="form-con">
-                    <Form ref="loginForm" :model="form" :rules="rules">
-                        <FormItem prop="userName">
-                            <Input v-model="form.userName" placeholder="请输入用户名">
-                                <span slot="prepend">
-                                    <Icon :size="16" type="person"></Icon>
-                                </span>
-                            </Input>
-                        </FormItem>
-                        <FormItem prop="password">
-                            <Input type="password" v-model="form.password" placeholder="请输入密码">
-                                <span slot="prepend">
-                                    <Icon :size="14" type="locked"></Icon>
-                                </span>
-                            </Input>
-                        </FormItem>
-                        <FormItem>
-                            <Button @click="handleSubmit" type="primary" long>登录</Button>
-                        </FormItem>
-                    </Form>
-                    <p class="login-tip">输入任意用户名和密码即可</p>
-                </div>
-            </Card>
-        </div>
+    <div class="login-container">
+        <Modal v-model="dialogVisible"
+               :mask-closable="false"
+               :closable="false">
+            <h3 slot="header" style="text-align: center">登录</h3>
+            <i-form ref="model" :model="model" :rules="ruleValidate" :label-width="70">
+                <Form-item label="用户名" prop="username">
+                    <i-input type="text" v-model="model.username" placeholder="请输入用户名"></i-input>
+                </Form-item>
+                <Form-item label="密码" prop="password">
+                    <i-input type="password" v-model="model.password" placeholder="请输入密码"></i-input>
+                </Form-item>
+                <i-button type="primary" long @click="login" :loading="isLoading">登录</i-button>
+            </i-form>
+            <template slot="footer"></template>
+        </Modal>
     </div>
 </template>
-
 <script>
-import Cookies from 'js-cookie';
-export default {
-    data () {
-        return {
-            form: {
-                userName: 'iview_admin',
-                password: ''
-            },
-            rules: {
-                userName: [
-                    { required: true, message: '账号不能为空', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: '密码不能为空', trigger: 'blur' }
-                ]
-            }
-        };
+  export default {
+    data: function () {
+      return {
+        dialogVisible: true,
+        isLoading: false,
+        model: {
+          username: '',
+          password: ''
+        },
+        ruleValidate: {
+          username: [
+            {required: true, message: '用户名不能为空', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '密码不能为空', trigger: 'blur'}
+          ]
+        }
+      }
     },
     methods: {
-        handleSubmit () {
-            this.$refs.loginForm.validate((valid) => {
-                if (valid) {
-                    Cookies.set('user', this.form.userName);
-                    Cookies.set('password', this.form.password);
-                    this.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
-                    if (this.form.userName === 'iview_admin') {
-                        Cookies.set('access', 0);
-                    } else {
-                        Cookies.set('access', 1);
-                    }
-                    this.$router.push({
-                        name: 'home_index'
-                    });
-                }
-            });
-        }
+      login () {
+//        let self = this
+//        self.$refs['model'].validate((valid) => {
+//          if (valid) {
+//            console.log('表单验证通过')
+//            self.isLoading = true
+//            axios.post('api/auth/login', {
+//              username: self.model.username,
+//              password: self.model.password
+//            }).then(response => {
+//              self.isLoading = false
+//              console.log(response)
+//              window.uploadHeaders.Authorization = window.axios.defaults.headers.common.Authorization = 'Bearer ' + response.data.access_token
+//              self.model.dialogVisible = false
+//              self.$store.dispatch('fetchUser')
+//              self.$store.dispatch('fetchUserPermissions')
+//              self.$router.push(self.$store.state.authRedirectUrl)
+//            }).catch(error => {
+//              self.isLoading = false
+//              console.log(error)
+//              self.$Notice.error({
+//                title: '错误',
+//                desc: error
+//              })
+//            })
+//          } else {
+//            console.log('表单验证失败')
+//          }
+//        })
+      }
     }
-};
+  }
 </script>
-
-<style>
-
-</style>
