@@ -1,0 +1,26 @@
+@import "~bootstrap/scss/mixins";
+.main-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+.body-container {
+  height: 100%;
+  margin-left: 12.5rem;
+  overflow: hidden;
+}
+
+
+.sidebar-container {
+  @include float-left;
+  width: 12.5rem;
+  height: 100%;
+}
+
+/**
+ * Border shadow
+ */
+
+.border-shadow-bottom{
+  box-shadow: 0 2px 1px 1px hsla(0,0%,39%,.1)
+}

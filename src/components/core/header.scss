@@ -1,0 +1,13 @@
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+.main-header-container {
+  background-color: #fff;
+
+  .navicon-con {
+    @include float-left;
+  }
+  .header-item {
+    @include float-right;
+    padding: 1rem;
+  }
+}
