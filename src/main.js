@@ -8,7 +8,6 @@ import './bootstrap/iview'
 import routerConfig from './router/index'
 
 Vue.config.productionTip = false
-console.log(routerConfig)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

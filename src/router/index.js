@@ -1,4 +1,15 @@
+/**
+ *  路由配置页
+ *  路由定义中的meta属性中 增加了几s个特殊属性
+ *
+ *  showOnMenu              该选项是否显示在边栏菜单中
+ *  icon                    在边栏菜单中显示时的图标
+ *  title                   在边栏菜单中显示时的名称
+ *  requiresAuth            该路由是否需要登录才能访问
+ */
+
 import Main from '../views/Main.vue'
+import App from '@/libs/app.js'
 
 export const loginRouter = {
   path: '/login',
@@ -6,7 +17,14 @@ export const loginRouter = {
   meta: {
     title: 'Login - 登录'
   },
-  component: resolve => { require(['../views/login.vue'], resolve) }
+  component: resolve => { require(['../views/login.vue'], resolve) },
+  beforeEach: (to, from, next) => {
+    if (App.auth()) {  // 判断是否已经登录
+      next({
+        name: 'home_index'
+      })
+    }
+  }
 }
 
 export const appRouter = [
@@ -28,6 +46,60 @@ export const appRouter = [
           showOnMenu: true,
           icon: 'key',
           title: '权限管理'
+        }
+      }
+    ]
+  },
+  {
+    path: '/menu1',
+    name: 'menu1',
+    component: Main,
+    meta: {
+      showOnMenu: true,
+      icon: 'key',
+      title: '菜单1'
+    },
+    children: [
+      {
+        path: 'menu1-1',
+        name: 'menu1_1',
+        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        meta: {
+          showOnMenu: true,
+          icon: 'key',
+          title: '菜单1-1'
+        }
+      }
+    ]
+  },
+  {
+    path: '/menu2',
+    name: 'menu2',
+    component: Main,
+    meta: {
+      showOnMenu: true,
+      icon: 'key',
+      title: '菜单2'
+    },
+    children: [
+      {
+        path: 'menu2-1',
+        name: 'menu2-1',
+        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        meta: {
+          showOnMenu: true,
+          icon: 'key',
+          title: '菜单2-1'
+        }
+      },
+      {
+        path: 'menu2-2',
+        name: 'menu2-2',
+        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        meta: {
+          showOnMenu: true,
+          icon: 'key',
+          title: '菜单2-2'
         }
       }
     ]

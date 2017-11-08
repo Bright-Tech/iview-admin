@@ -1,10 +1,32 @@
 <template>
-    <nav class="navbar main-header-container border-shadow-bottom">
-        <Button class="navbar-toggler pl-0" :style="{transform: 'rotateZ(' + (this.hideMenuText ? '-90' : '0') + 'deg)'}" type="text"
+    <nav class="navbar main-header-container align-items-center">
+        <Button class="navbar-toggler pl-0"
+                :style="{transform: 'rotateZ(' + (this.hideMenuText ? '-90' : '0') + 'deg)'}" type="text"
                 @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
         </Button>
-        <ul class="navbar-nav flex-row-reverse align-items-center">
+        <ul class="navbar-nav">
+            <li>
+                <bs4-breadcrumb :items="breadcrumbItems"></bs4-breadcrumb>
+            </li>
+        </ul>
+        <ul class="navbar-nav flex-row align-items-center ml-md-auto">
+            <li class="nav-item mx-2">
+                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
+                         placement="bottom">
+                    <Badge :count="messageCount" dot>
+                        <Icon type="ios-bell" :size="22"></Icon>
+                    </Badge>
+                </Tooltip>
+            </li>
+            <li class="nav-item mx-2">
+                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
+                         placement="bottom">
+                    <Badge :count="messageCount" dot>
+                        <Icon type="email" :size="22"></Icon>
+                    </Badge>
+                </Tooltip>
+            </li>
             <li class="nav-item ml-2">
                 <Dropdown trigger="click" @on-click="handleClickUserDropdown">
                     <a href="javascript:void(0)">
@@ -18,35 +40,21 @@
                 </Dropdown>
                 <Avatar :src="avatorPath" style="line-height: inherit; margin-left: 10px;"></Avatar>
             </li>
-            <li class="nav-item mx-2">
-                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
-                         placement="bottom">
-                    <Badge :count="messageCount" dot>
-                        <Icon type="email" :size="22"></Icon>
-                    </Badge>
-                </Tooltip>
-            </li>
-            <li class="nav-item mx-2">
-                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
-                         placement="bottom">
-                    <Badge :count="messageCount" dot>
-                        <Icon type="ios-bell" :size="22"></Icon>
-                    </Badge>
-                </Tooltip>
-            </li>
         </ul>
     </nav>
 </template>
 
 <script>
   import breadcrumbNav from '../../views/main_components/breadcrumbNav.vue'
+  import Bs4Breadcrumb from '../bootstrap4/breadcrumb.vue'
   import util from '@/libs/util.js'
   import Cookies from 'js-cookie'
 
   export default {
     name: 'LayoutHeader',
     components: {
-      breadcrumbNav
+      breadcrumbNav,
+      Bs4Breadcrumb
     },
     data () {
       return {
@@ -63,6 +71,9 @@
       },
       avatorPath () {
         return localStorage.avatorImgPath
+      },
+      breadcrumbItems () {
+        return this.$store.state.core.breadcrumbItems
       }
     },
     methods: {

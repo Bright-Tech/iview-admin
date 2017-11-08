@@ -2,40 +2,38 @@
 </style>
 
 <template>
-    <Menu ref="sideMenu"
-          width="auto" @on-select="changeMenu" theme="dark">
+    <Menu ref="sideMenu" accordion
+          width="auto" @on-select="changeMenu" theme="dark" :openNames="openedMenuNames" :activeName="activeName">
         <template v-for="item in menuList">
-
-
-            <Submenu v-if="item.children" :name="item.name" :key="item.path">
+            <Submenu v-if="item.children" :name="item.routeName">
                 <template slot="title">
                     <Icon :type="item.icon" :size="iconSize"></Icon>
-                    <span class="layout-text">{{ itemTitle(item) }}</span>
+                    <span class="layout-text">{{ item.title }}</span>
                 </template>
                 <template v-for="child in item.children">
-                    <MenuItem :name="child.name" :key="child.path">
-                        <Icon :type="child.meta.icon" :size="iconSize" :key="child.path"></Icon>
-                        <span class="layout-text" :key="child.name">{{ itemTitle(child) }}</span>
+                    <MenuItem :name="child.routeName">
+                        <Icon :type="child.icon" :size="iconSize" :key="child.path"></Icon>
+                        <span class="layout-text" :key="child.name">{{ child.title }}</span>
                     </MenuItem>
                 </template>
             </Submenu>
 
-            <MenuItem v-else :name="item.name" :key="item.path">
-                <Icon :type="item.meta.icon" :size="iconSize" :key="item.path"></Icon>
-                <span class="layout-text" :key="item.path">{{ itemTitle(item) }}</span>
+            <MenuItem v-else :name="item.routeName">
+                <Icon :type="item.icon" :size="iconSize" :key="item.path"></Icon>
+                <span class="layout-text" :key="item.path">{{ item.title }}</span>
             </MenuItem>
         </template>
     </Menu>
 </template>
 
 <script>
-//  import util from '@/libs/util'
+  //  import util from '@/libs/util'
 
   export default {
     data () {
       return {
-        currentPageName: this.$route.name
-//        openedSubmenuArr: this.$store.state.openedSubmenuArr
+        currentPageName: this.$route.name,
+        activeName: this.$store.state.core.activeName
       }
     },
     name: 'sidebarMenu',
@@ -47,6 +45,14 @@
     computed: {
       tagsList () {
         return this.$store.state.tagsList
+      },
+      openedMenuNames () {
+        let names = []
+        this.$store.state.core.openedMenuNames.forEach((item) => {
+          names.push(item)
+        })
+        console.log(names)
+        return names
       }
     },
     methods: {

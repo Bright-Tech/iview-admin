@@ -1,8 +1,6 @@
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-
-  menuList: [],
   currentPageName: '',
   currentPath: [
     {
@@ -10,7 +8,21 @@ const state = {
       path: '',
       name: 'home_index'
     }
-  ]  // 面包屑数组
+  ],
+  /**
+   * 菜单相关
+   */
+  menuList: [],
+  openedMenuNames: [],
+  activeName: '',
+  /**
+   * 面包屑
+   */
+  breadcrumbItems: [{
+    title: '首页',
+    path: '',
+    name: 'home_index'
+  }]
 }
 
 // getters
@@ -21,6 +33,12 @@ const actions = {}
 
 // mutations
 const mutations = {
+  setCurrentPath (state, pathArr) {
+    state.currentPath = pathArr
+  },
+  /**
+   * 菜单相关
+   */
   setMenuList (state, menulist) {
     state.menuList = menulist
   },
@@ -28,18 +46,68 @@ const mutations = {
     let menuList = []
     appRouter.forEach((item, index) => {
       if (item.meta && item.meta.showOnMenu) {
-        if (item.children) {
-          let childrenArr = item.children.filter(child => child.meta && child.meta.showOnMenu)
-          let handledItem = JSON.parse(JSON.stringify(item))
-          handledItem.children = childrenArr
-          menuList.push(handledItem)
-        } else {
-          menuList.push(item)
+        let handledItem = {
+          title: item.meta.title,
+          icon: item.meta.icon,
+          routeName: item.name
         }
+        if (item.children) {
+          handledItem.children = []
+          item.children.forEach((child, childIndex) => {
+            if (child.meta && child.meta.showOnMenu) {
+              handledItem.children.push({
+                title: child.meta.title,
+                icon: child.meta.icon,
+                routeName: child.name
+              })
+            }
+          })
+        }
+
+        menuList.push(handledItem)
       }
     })
-    console.log(menuList)
     state.menuList = menuList
+  },
+  updateOpenedMenu (state, route) {
+    let matched = route.matched
+    let names = []
+    matched.forEach((item, index) => {
+      if (item.name !== route.name) {
+        names.push(item.name)
+      }
+    })
+    state.activeName = route.name
+    state.openedMenuNames = names
+  },
+  /**
+   * 面包屑相关
+   */
+  updateBreadcrumb (state, route) {
+    let matched = route.matched
+    let items = [{
+      title: '首页',
+      routeName: 'home_index'
+    }]
+    if (route.name !== 'home_index') {
+      matched.forEach((item, index) => {
+        if (item.name === route.name) {
+          items.push({
+            title: item.meta.title,
+            routeName: item.name,
+            active: true
+          })
+        } else {
+          items.push({
+            title: item.meta.title,
+            routeName: item.name,
+            active: false
+          })
+        }
+      })
+    }
+
+    state.breadcrumbItems = items
   }
 }
 

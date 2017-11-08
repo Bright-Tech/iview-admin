@@ -11,19 +11,7 @@
 </script>
 
 <style lang="scss">
-    $font-family-sans-serif: // Safari for OS X and iOS (San Francisco)
-            -apple-system, "STHeiti Light",
-                // Chrome < 56 for OS X (San Francisco)
-            BlinkMacSystemFont,
-                // Windows
-            "Segoe UI", "Microsoft YaHei",
-                // Android
-            "Roboto",
-                // Basic web fallback
-            "Helvetica Neue", Arial, sans-serif,
-                // Emoji fonts
-            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-
+    @import "./styles/variables";
     @import "~bootstrap/scss/bootstrap.scss";
     html, body, #app {
         width: 100%;

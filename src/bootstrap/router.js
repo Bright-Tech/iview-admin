@@ -1,9 +1,13 @@
+/**
+ * 路由初始化
+ *
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { routerConfig } from '../router'
-import Cookies from 'js-cookie'
 import iView from 'iview'
-import Util from '../libs/util'
+import store from '@/store'
+import App from '@/libs/app.js'
 
 // 路由配置
 Vue.use(VueRouter)
@@ -14,16 +18,17 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
-  Util.title(to.meta.title)
-  if (!Cookies.get('user') && to.name !== 'login') {  // 判断是否已经登录且前往的页面不是登录页
-    next({
-      name: 'login'
-    })
-  } else if (Cookies.get('user') && to.name === 'login') {  // 判断是否已经登录且前往的是登录页
-    Util.title()
-    next({
-      name: 'home_index'
-    })
+  App.setTitle(to.meta.title)
+
+  if (to.matched.some(record => record.meta && record.meta.requiresAuth)) { // 判断目标路由是否需要登录
+    if (!App.auth()) {
+      next({
+        name: 'login',
+        query: {redirect: to.fullPath}
+      })
+    } else {
+      next()
+    }
   } else {
     next()
   }
@@ -31,7 +36,9 @@ router.beforeEach((to, from, next) => {
   iView.LoadingBar.finish()
 })
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
+  store.commit('updateOpenedMenu', to)
+  store.commit('updateBreadcrumb', to)
   iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })

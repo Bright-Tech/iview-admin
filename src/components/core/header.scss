@@ -1,13 +1,27 @@
 @import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../styles/variables";
 
 .main-header-container {
   background-color: #fff;
 
-  .navicon-con {
-    @include float-left;
+  .breadcrumb{
+    margin-bottom: 0px;
+    padding: 0px;
+    padding-left: 1rem;
+    background-color: transparent;
+    a{
+      color: $font-color;
+    }
+    a:hover{
+      text-decoration: none;
+      color: $theme-color-main;
+    }
   }
-  .header-item {
-    @include float-right;
-    padding: 1rem;
+  .breadcrumb-item + .breadcrumb-item::before{
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  .breadcrumb-item.active{
+    font-weight: 500;
   }
 }
