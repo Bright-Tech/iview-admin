@@ -4,24 +4,24 @@
 .main-header-container {
   background-color: #fff;
 
-  .breadcrumb{
+  .breadcrumb {
+    font-size: 0.85rem;
     margin-bottom: 0px;
     padding: 0px;
     padding-left: 1rem;
     background-color: transparent;
-    a{
+    a {
       color: $font-color;
     }
-    a:hover{
+    a:hover {
       text-decoration: none;
       color: $theme-color-main;
     }
   }
-  .breadcrumb-item + .breadcrumb-item::before{
-    font-size: 0.75rem;
-    line-height: 1rem;
+  .breadcrumb-item + .breadcrumb-item::before {
+    font-size: 0.5rem;
   }
-  .breadcrumb-item.active{
+  .breadcrumb-item.active {
     font-weight: 500;
   }
 }

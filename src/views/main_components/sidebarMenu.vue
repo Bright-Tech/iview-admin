@@ -1,6 +1,3 @@
-<style lang="less">
-</style>
-
 <template>
     <Menu ref="sideMenu" accordion
           width="auto" @on-select="changeMenu" theme="dark" :openNames="openedMenuNames" :activeName="activeName">
@@ -27,15 +24,7 @@
 </template>
 
 <script>
-  //  import util from '@/libs/util'
-
   export default {
-    data () {
-      return {
-        currentPageName: this.$route.name,
-        activeName: this.$store.state.core.activeName
-      }
-    },
     name: 'sidebarMenu',
     props: {
       slotTopClass: String,
@@ -43,16 +32,15 @@
       iconSize: Number
     },
     computed: {
-      tagsList () {
-        return this.$store.state.tagsList
-      },
       openedMenuNames () {
         let names = []
         this.$store.state.core.openedMenuNames.forEach((item) => {
           names.push(item)
         })
-        console.log(names)
         return names
+      },
+      activeName () {
+        return this.$store.state.core.activeName
       }
     },
     methods: {
@@ -66,18 +54,6 @@
       },
       itemTitle (item) {
         return item.meta.title
-      }
-    },
-    watch: {
-      '$route' (to) {
-//        this.currentPageName = to.name
-//        localStorage.currentPageName = to.name
-      },
-      currentPageName () {
-        this.openedSubmenuArr = this.$store.state.openedSubmenuArr
-        this.$nextTick(() => {
-          this.$refs.sideMenu.updateOpened()
-        })
       }
     },
     updated () {

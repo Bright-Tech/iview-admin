@@ -1,5 +1,33 @@
-<style lang="less">
-    @import './login.less';
+<style lang="scss">
+    .login {
+        width: 100%;
+        height: 100%;
+        background-image: url('../assets/images/login-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        &-con {
+            position: absolute;
+            right: 160px;
+            top: 50%;
+            transform: translateY(-60%);
+            width: 300px;
+            &-header {
+                font-size: 16px;
+                font-weight: 300;
+                text-align: center;
+                padding: 30px 0;
+            }
+            .form-con {
+                padding: 10px 0 0;
+            }
+            .login-tip {
+                font-size: 10px;
+                text-align: center;
+                color: #c3c3c3;
+            }
+        }
+    }
 </style>
 
 <template>
@@ -38,7 +66,7 @@
 </template>
 
 <script>
-  import Cookies from 'js-cookie'
+  import App from '../libs/app'
 
   export default {
     data () {
@@ -61,14 +89,12 @@
       handleSubmit () {
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
-            Cookies.set('user', this.form.userName)
-            Cookies.set('password', this.form.password)
-            this.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg')
-            if (this.form.userName === 'iview_admin') {
-              Cookies.set('access', 0)
-            } else {
-              Cookies.set('access', 1)
-            }
+            App.login({
+              name: this.form.userName,
+              token: '',
+              avator: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg',
+              permissions: ['access']
+            })
             this.$router.push({
               name: 'home_index'
             })

@@ -11,26 +11,11 @@
             </li>
         </ul>
         <ul class="navbar-nav flex-row align-items-center ml-md-auto">
-            <li class="nav-item mx-2">
-                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
-                         placement="bottom">
-                    <Badge :count="messageCount" dot>
-                        <Icon type="ios-bell" :size="22"></Icon>
-                    </Badge>
-                </Tooltip>
-            </li>
-            <li class="nav-item mx-2">
-                <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'"
-                         placement="bottom">
-                    <Badge :count="messageCount" dot>
-                        <Icon type="email" :size="22"></Icon>
-                    </Badge>
-                </Tooltip>
-            </li>
-            <li class="nav-item ml-2">
+
+            <li class="nav-item ml-2 d-flex align-items-center">
                 <Dropdown trigger="click" @on-click="handleClickUserDropdown">
                     <a href="javascript:void(0)">
-                        <span class="main-user-name">{{ userName }}</span>
+                        <span class="main-user-name">{{ user.name }}</span>
                         <Icon type="arrow-down-b"></Icon>
                     </a>
                     <DropdownMenu slot="list">
@@ -38,53 +23,42 @@
                         <DropdownItem name="loginout" divided>退出登录</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Avatar :src="avatorPath" style="line-height: inherit; margin-left: 10px;"></Avatar>
+                <Avatar :src="user.avator" style="line-height: inherit; margin-left: 10px;"></Avatar>
             </li>
         </ul>
     </nav>
 </template>
 
 <script>
-  import breadcrumbNav from '../../views/main_components/breadcrumbNav.vue'
   import Bs4Breadcrumb from '../bootstrap4/breadcrumb.vue'
   import util from '@/libs/util.js'
-  import Cookies from 'js-cookie'
+  import App from '@/libs/app.js'
 
   export default {
     name: 'LayoutHeader',
     components: {
-      breadcrumbNav,
       Bs4Breadcrumb
     },
     data () {
       return {
-        userName: '',
         messageCount: 0
       }
     },
     computed: {
-      currentPath () {
-        return this.$store.state.currentPath  // 当前面包屑数组
-      },
       hideMenuText () {
         return this.$store.state.systemHideMenuText
       },
-      avatorPath () {
-        return localStorage.avatorImgPath
-      },
       breadcrumbItems () {
         return this.$store.state.core.breadcrumbItems
+      },
+      user () {
+        console.log(App.user())
+        return App.user()
       }
     },
     methods: {
       toggleClick () {
         this.$store.commit('toggleMenuTextVisible')
-      },
-      showMessage () {
-        util.openNewPage(this, 'message_index')
-        this.$router.push({
-          name: 'message_index'
-        })
       },
       handleClickUserDropdown (name) {
         if (name === 'ownSpace') {
@@ -94,24 +68,11 @@
           })
         } else if (name === 'loginout') {
           // 退出登录
-          Cookies.remove('user')
-          Cookies.remove('password')
-          Cookies.remove('hasGreet')
-          Cookies.remove('access')
+          App.logout()
           this.$Notice.close('greeting')
-          this.$store.commit('clearOpenedSubmenu')
-          // 回复默认样式
-          let themeLink = document.querySelector('link[name="theme"]')
-          themeLink.setAttribute('href', '')
+//          this.$store.commit('clearOpenedSubmenu')
           // 清空打开的页面等数据，但是保存主题数据
-          let theme = ''
-          if (localStorage.theme) {
-            theme = localStorage.theme
-          }
           localStorage.clear()
-          if (theme) {
-            localStorage.theme = theme
-          }
           this.$router.push({
             name: 'login'
           })

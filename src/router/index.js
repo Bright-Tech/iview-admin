@@ -19,13 +19,24 @@ export const loginRouter = {
   },
   component: resolve => { require(['../views/login.vue'], resolve) },
   beforeEach: (to, from, next) => {
-    if (App.auth()) {  // 判断是否已经登录
+    if (App.user()) {  // 判断是否已经登录
       next({
         name: 'home_index'
       })
     }
   }
 }
+
+export const errorRouter = [
+  {
+    path: '/error/403',
+    name: '403',
+    meta: {
+      title: '错误 - 权限不足'
+    },
+    component: resolve => { require(['../views/error_page/404.vue'], resolve) }
+  }
+]
 
 export const appRouter = [
   {
@@ -41,11 +52,13 @@ export const appRouter = [
       {
         path: 'index',
         name: 'access_index',
-        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        component: () => import('../views/access/access.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',
-          title: '权限管理'
+          title: '权限管理',
+          requiresAuth: true,
+          requiresPermission: 'access'
         }
       }
     ]
@@ -63,11 +76,13 @@ export const appRouter = [
       {
         path: 'menu1-1',
         name: 'menu1_1',
-        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        component: () => import('../views/access/access.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',
-          title: '菜单1-1'
+          title: '菜单1-1',
+          requiresAuth: true,
+          requiresPermission: 'menu'
         }
       }
     ]
@@ -85,7 +100,7 @@ export const appRouter = [
       {
         path: 'menu2-1',
         name: 'menu2-1',
-        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        component: () => import('../views/access/access.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',
@@ -95,7 +110,7 @@ export const appRouter = [
       {
         path: 'menu2-2',
         name: 'menu2-2',
-        component: resolve => { require(['../views/access/access.vue'], resolve) },
+        component: () => import('../views/access/access.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',
@@ -111,11 +126,17 @@ export const otherRouter = {
   path: '/',
   name: 'otherRouter',
   component: Main,
+  meta: {
+    requiresAuth: true
+  },
   children: [
     {
       path: 'home',
       title: '首页',
       name: 'home_index',
+      meta: {
+        requiresAuth: true
+      },
       component: resolve => { require(['../views/home/home.vue'], resolve) }
     }
     // { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: resolve => { require(['./views/own-space/own-space.vue'], resolve); } },
@@ -128,6 +149,7 @@ export const otherRouter = {
 export const routerConfig = [
   loginRouter,
   ...appRouter,
+  ...errorRouter,
   otherRouter
 ]
 

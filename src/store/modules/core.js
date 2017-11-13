@@ -1,5 +1,7 @@
 // initial state
 // shape: [{ id, quantity }]
+import App from '@/libs/app.js'
+
 const state = {
   currentPageName: '',
   currentPath: [
@@ -55,16 +57,21 @@ const mutations = {
           handledItem.children = []
           item.children.forEach((child, childIndex) => {
             if (child.meta && child.meta.showOnMenu) {
-              handledItem.children.push({
-                title: child.meta.title,
-                icon: child.meta.icon,
-                routeName: child.name
-              })
+              if (child.meta.requiresPermission && !App.hasPermission(child.meta.requiresPermission)) {
+              } else {
+                handledItem.children.push({
+                  title: child.meta.title,
+                  icon: child.meta.icon,
+                  routeName: child.name
+                })
+              }
             }
           })
         }
-
-        menuList.push(handledItem)
+        if (handledItem.children && handledItem.children.length === 0) {
+        } else {
+          menuList.push(handledItem)
+        }
       }
     })
     state.menuList = menuList

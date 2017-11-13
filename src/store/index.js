@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { otherRouter, appRouter } from '../router'
 import core from './modules/core'
 // import Cookies from 'js-cookie'
 // import Util from '@/libs/util.js'
@@ -12,12 +11,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   state: {
     systemHideMenuText: false,
-    routers: [
-      otherRouter,
-      ...appRouter
-    ],
+
     menuList: [],
-    tagsList: [...otherRouter.children],
     pageOpenedList: [{
       title: '首页',
       path: '',
@@ -43,9 +38,9 @@ export default new Vuex.Store({
     toggleMenuTextVisible (state) {
       state.hideMenuText = !state.hideMenuText
     },
-    setOpenedList (state) {
-      state.pageOpenedList = localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [otherRouter.children[0]]
-    },
+    // setOpenedList (state) {
+    //   state.pageOpenedList = localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [otherRouter.children[0]]
+    // },
     setCurrentPath (state, pathArr) {
       state.currentPath = pathArr
     },
