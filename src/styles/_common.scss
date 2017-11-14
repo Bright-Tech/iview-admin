@@ -1,0 +1,15 @@
+body {
+  color: $body-font-color;
+}
+
+a {
+  color: $body-font-color;
+
+  &:hover, &:focus, &:visited {
+    color: $body-font-color;
+  }
+
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}

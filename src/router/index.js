@@ -88,23 +88,23 @@ export const appRouter = [
     ]
   },
   {
-    path: '/menu2',
-    name: 'menu2',
+    path: '/sample',
+    name: 'sample',
     component: Main,
     meta: {
       showOnMenu: true,
       icon: 'key',
-      title: '菜单2'
+      title: '示例页面'
     },
     children: [
       {
-        path: 'menu2-1',
-        name: 'menu2-1',
+        path: 'list',
+        name: 'sample-list',
         component: () => import('../views/access/access.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',
-          title: '菜单2-1'
+          title: '列表'
         }
       },
       {

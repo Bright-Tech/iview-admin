@@ -1,4 +1,6 @@
 @import "~bootstrap/scss/mixins";
+@import "../styles/variables";
+@import "../styles/common";
 .main-container {
   height: 100%;
   overflow: hidden;

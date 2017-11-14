@@ -6,22 +6,16 @@
   .breadcrumb {
     font-size: 0.85rem;
     background-color: transparent;
-    a {
-      color: $font-color;
-    }
-    a:hover {
-      text-decoration: none;
-      color: $theme-color-main;
-    }
+
   }
   .breadcrumb-item + .breadcrumb-item::before {
     font-size: 0.5rem;
   }
   .breadcrumb-item.active {
-    color: #777;
+    color: inherit;
   }
 
-  .header-title-container{
+  .header-title-container {
     background-color: #ffffff;
   }
 }
