@@ -2,10 +2,10 @@
 -->
 <template>
     <nav aria-label="breadcrumb" role="navigation">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" :class="breadcrumbClass">
             <li class="breadcrumb-item" :class="item.active?'active':''" aria-current="page"
                 v-for="item in items">
-                <span v-if="item.active">{{item.title}}</span>
+                <span v-if="item.active"><strong>{{item.title}}</strong></span>
                 <span v-else><router-link :to="{name:item.routeName}">{{item.title}}</router-link></span>
             </li>
         </ol>

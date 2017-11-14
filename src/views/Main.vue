@@ -7,7 +7,7 @@
         <div class="body-container">
             <layout-header></layout-header>
             <!--<tab-bar></tab-bar>-->
-            <div class="page-container container-fluid">
+            <div class="page-container container-fluid mt-3">
                 <keep-alive :include="cachePage">
                     <router-view></router-view>
                 </keep-alive>

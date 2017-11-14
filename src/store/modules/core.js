@@ -115,6 +115,10 @@ const mutations = {
     }
 
     state.breadcrumbItems = items
+  },
+  setPageTitle (state, title) {
+    App.setTitle(title)
+    state.currentPageName = title
   }
 }
 

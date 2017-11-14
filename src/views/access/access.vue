@@ -2,7 +2,7 @@
     <div class="access">
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 pr-0">
                 <bs4-card>
                     <div slot="header">
                     <Icon type="android-contact"></Icon>

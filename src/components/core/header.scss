@@ -2,13 +2,9 @@
 @import "../../styles/variables";
 
 .main-header-container {
-  background-color: #fff;
 
   .breadcrumb {
     font-size: 0.85rem;
-    margin-bottom: 0px;
-    padding: 0px;
-    padding-left: 1rem;
     background-color: transparent;
     a {
       color: $font-color;
@@ -22,6 +18,10 @@
     font-size: 0.5rem;
   }
   .breadcrumb-item.active {
-    font-weight: 500;
+    color: #777;
+  }
+
+  .header-title-container{
+    background-color: #ffffff;
   }
 }

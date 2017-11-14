@@ -1,32 +1,39 @@
 <template>
-    <nav class="navbar main-header-container align-items-center">
-        <Button class="navbar-toggler pl-0"
-                :style="{transform: 'rotateZ(' + (this.hideMenuText ? '-90' : '0') + 'deg)'}" type="text"
-                @click="toggleClick">
-            <Icon type="navicon" size="32"></Icon>
-        </Button>
-        <ul class="navbar-nav">
-            <li>
-                <bs4-breadcrumb :items="breadcrumbItems"></bs4-breadcrumb>
-            </li>
-        </ul>
-        <ul class="navbar-nav flex-row align-items-center ml-md-auto">
+    <div class="container-fluid main-header-container">
+        <nav class="navbar  align-items-center p-0 py-1">
+            <Button class="navbar-toggler pl-0 "
+                    :style="{transform: 'rotateZ(' + (this.hideMenuText ? '-90' : '0') + 'deg)'}" type="text"
+                    @click="toggleClick">
+                <Icon type="navicon" size="32"></Icon>
+            </Button>
 
-            <li class="nav-item ml-2 d-flex align-items-center">
-                <Dropdown trigger="click" @on-click="handleClickUserDropdown">
-                    <a href="javascript:void(0)">
-                        <span class="main-user-name">{{ user.name }}</span>
-                        <Icon type="arrow-down-b"></Icon>
-                    </a>
-                    <DropdownMenu slot="list">
-                        <DropdownItem name="ownSpace">个人中心</DropdownItem>
-                        <DropdownItem name="loginout" divided>退出登录</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-                <Avatar :src="user.avator" style="line-height: inherit; margin-left: 10px;"></Avatar>
-            </li>
-        </ul>
-    </nav>
+            <ul class="navbar-nav flex-row align-items-center ml-md-auto">
+
+                <li class="nav-item ml-2 d-flex align-items-center">
+                    <Dropdown trigger="click" @on-click="handleClickUserDropdown">
+                        <a href="javascript:void(0)">
+                            <span class="main-user-name">{{ user.name }}</span>
+                            <Icon type="arrow-down-b"></Icon>
+                        </a>
+                        <DropdownMenu slot="list">
+                            <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                            <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                    <Avatar :src="user.avator" style="line-height: inherit; margin-left: 10px;"></Avatar>
+                </li>
+            </ul>
+        </nav>
+        <div class="row header-title-container py-3 align-items-center">
+            <div class="col">
+                <span class="h5">{{$store.state.core.currentPageName}}</span>
+            </div>
+            <div class="col">
+                <bs4-breadcrumb :items="breadcrumbItems" breadcrumbClass="d-flex align-items-end float-right m-0 p-0"></bs4-breadcrumb>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script>

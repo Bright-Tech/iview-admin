@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  App.setTitle(to.meta.title)
+  store.commit('setPageTitle', to.meta.title)
   store.commit('updateOpenedMenu', to)
   store.commit('updateBreadcrumb', to)
   iView.LoadingBar.finish()
