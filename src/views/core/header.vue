@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import Bs4Breadcrumb from '../bootstrap4/breadcrumb.vue'
+  import Bs4Breadcrumb from '../../components/bootstrap4/breadcrumb.vue'
   import util from '@/libs/util.js'
   import App from '@/libs/app.js'
 

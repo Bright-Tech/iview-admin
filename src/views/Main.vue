@@ -19,8 +19,8 @@
 </template>
 <script>
   //  import util from '@/libs/util.js'
-  import header from '../components/core/header.vue'
-  import SideBar from '../components/core/sidebar.vue'
+  import header from './core/header.vue'
+  import SideBar from './core/sidebar.vue'
   //  import TabBar from '../components/core/tabbar.vue'
 
   export default {

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import sidebarMenu from '../../views/main_components/sidebarMenu.vue'
-  import sidebarMenuShrink from '../../views/main_components/sidebarMenuShrink.vue'
+  import sidebarMenu from './components/sidebarMenu.vue'
+  import sidebarMenuShrink from './components/sidebarMenuShrink.vue'
   //  import breadcrumbNav from '../main_components/breadcrumbNav.vue'
   //  import util from '@/libs/util.js'
   //  import Cookies from 'js-cookie'

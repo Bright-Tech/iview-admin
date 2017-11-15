@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-  import tagsPageOpened from '../../views/main_components/tagsPageOpened.vue'
+  import tagsPageOpened from './components/tagsPageOpened.vue'
 
   export default {
     name: '',
