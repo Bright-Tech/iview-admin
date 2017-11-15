@@ -100,7 +100,7 @@ export const appRouter = [
       {
         path: 'list',
         name: 'sample-list',
-        component: () => import('../views/access/access.vue'),
+        component: () => import('../views/examples/list.vue'),
         meta: {
           showOnMenu: true,
           icon: 'key',

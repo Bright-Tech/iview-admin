@@ -1,26 +1,31 @@
 <template>
-    <Menu ref="sideMenu" accordion
-          width="auto" @on-select="changeMenu" theme="dark" :openNames="openedMenuNames" :activeName="activeName">
-        <template v-for="item in menuList">
-            <Submenu v-if="item.children" :name="item.routeName">
-                <template slot="title">
-                    <Icon :type="item.icon" :size="iconSize"></Icon>
-                    <span class="layout-text">{{ item.title }}</span>
-                </template>
-                <template v-for="child in item.children">
-                    <MenuItem :name="child.routeName">
-                        <Icon :type="child.icon" :size="iconSize" :key="child.path"></Icon>
-                        <span class="layout-text" :key="child.name">{{ child.title }}</span>
-                    </MenuItem>
-                </template>
-            </Submenu>
+    <div class="sidebar-container ">
+        <div class="logo-con ">
+            <img src="../../assets/images/" key="max-logo" class="img-fluid"/>
+        </div>
+        <Menu ref="sideMenu" accordion
+              width="auto" @on-select="changeMenu" theme="dark" :openNames="openedMenuNames" :activeName="activeName">
+            <template v-for="item in menuList">
+                <Submenu v-if="item.children" :name="item.routeName">
+                    <template slot="title">
+                        <Icon :type="item.icon" :size="iconSize"></Icon>
+                        <span class="layout-text">{{ item.title }}</span>
+                    </template>
+                    <template v-for="child in item.children">
+                        <MenuItem :name="child.routeName">
+                            <Icon :type="child.icon" :size="iconSize" :key="child.path"></Icon>
+                            <span class="layout-text" :key="child.name">{{ child.title }}</span>
+                        </MenuItem>
+                    </template>
+                </Submenu>
 
-            <MenuItem v-else :name="item.routeName">
-                <Icon :type="item.icon" :size="iconSize" :key="item.path"></Icon>
-                <span class="layout-text" :key="item.path">{{ item.title }}</span>
-            </MenuItem>
-        </template>
-    </Menu>
+                <MenuItem v-else :name="item.routeName">
+                    <Icon :type="item.icon" :size="iconSize" :key="item.path"></Icon>
+                    <span class="layout-text" :key="item.path">{{ item.title }}</span>
+                </MenuItem>
+            </template>
+        </Menu>
+    </div>
 </template>
 
 <script>

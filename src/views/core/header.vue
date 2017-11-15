@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid main-header-container">
-        <nav class="navbar  align-items-center p-0 py-1">
-            <Button class="navbar-toggler pl-0 "
+        <nav class="navbar  align-items-center p-0 py-1 border-bottom">
+            <div class="btn btn-primary navbar-toggler "
                     :style="{transform: 'rotateZ(' + (this.hideMenuText ? '-90' : '0') + 'deg)'}" type="text"
                     @click="toggleClick">
                 <Icon type="navicon" size="32"></Icon>
-            </Button>
+            </div>
 
             <ul class="navbar-nav flex-row align-items-center ml-md-auto">
 
@@ -24,7 +24,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="row header-title-container py-3 align-items-center">
+        <div class="row header-title-container py-3 align-items-center border-bottom">
             <div class="col">
                 <span class="h5">{{$store.state.core.currentPageName}}</span>
             </div>

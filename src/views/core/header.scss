@@ -1,8 +1,21 @@
-@import "../../../node_modules/bootstrap/scss/mixins";
 @import "../../styles/variables";
 
 .main-header-container {
 
+  .navbar {
+    .navbar-toggler {
+      line-height: 1rem;
+      color: map-get($font-colors, "primary");
+      padding: 0px;
+      border: none;
+
+      &:hover{
+        background: transparent;
+        border: none;
+        color: map-get($font-colors, "hover");
+      }
+    }
+  }
   .breadcrumb {
     font-size: 0.85rem;
     background-color: transparent;

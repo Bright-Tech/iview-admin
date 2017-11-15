@@ -1,4 +1,6 @@
-$font-family-sans-serif: // Safari for OS X and iOS (San Francisco)
+@import "~bootstrap/scss/functions";
+
+$font-family-sans-serif: // Safari f    `or OS X and iOS (San Francisco)
         -apple-system, "STHeiti Light",
           // Chrome < 56 for OS X (San Francisco)
         BlinkMacSystemFont,
@@ -11,5 +13,26 @@ $font-family-sans-serif: // Safari for OS X and iOS (San Francisco)
           // Emoji fonts
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
-$body-font-color: #676a6c;
-$theme-color-main: #1ab394;
+@function theme-color($key: "primary") {
+  @return map-get($font-colors, $key);
+}
+
+$font-color-primary: #676a6c;
+$primary: #1ab394 !default;
+
+$font-colors: ();
+$font-colors: map-merge((
+        "primary": $font-color-primary,
+        "hover": $primary
+), $font-colors);
+
+// Settings for the `<body>` element.
+
+$body-bg: #f3f3f4;
+$body-color: map-get($font-colors, "primary");
+
+
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
