@@ -12,8 +12,13 @@
 <script>
   export default {
     name: '',
+    props: {
+//      cardClass: {
+//        type: String,
+//        default: ''
+//      }
+    },
     created () {
-      console.log(this.$slots)
     }
   }
 </script>
